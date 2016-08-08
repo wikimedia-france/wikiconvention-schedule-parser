@@ -43,7 +43,7 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-z# Byte-compiled / optimized / DLL files
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
