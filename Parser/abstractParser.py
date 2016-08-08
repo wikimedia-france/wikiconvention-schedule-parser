@@ -21,13 +21,20 @@ class Parser:
         p = '(.*)[0-9]+'
         c = re.compile(p)
         s = re.search(p, key)
+        #remove bind number
+        bs = re.search(p, bind)
+        if bs is not None:
+            bind = bs.group(1)
+        #test input
         inputString = bool(not c.match(key))
+        #test output
         if s == None:
             outputString = True
         else:
             outputString = not (bind == s.group(1))
+        #conditions
         if inputString:
-            if not hasattr(self.__fingerprint, bind):
+            if not bind in self.__fingerprint:
                 self.__fingerprint[bind] = value
             elif self.__fingerprint[bind] == "":
                 self.__fingerprint[bind] = value
@@ -37,14 +44,14 @@ class Parser:
                 pass
         else:
             if outputString:
-                if not hasattr(self.__fingerprint, bind):
+                if not bind in self.__fingerprint:
                     self.__fingerprint[bind] = value
                 elif self.__fingerprint[bind] == "":
                     self.__fingerprint[bind] = value
                 else:
                     self.__fingerprint[bind] += ", " + value
             else:
-                if not hasattr(self.__fingerprint, bind):
+                if not bind in self.__fingerprint:
                     self.__fingerprint[bind] = [value]
                 else:
                     self.__fingerprint[bind].append(value)
