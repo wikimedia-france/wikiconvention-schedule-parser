@@ -1,3 +1,5 @@
+import json
+
 class Factory:
     def __init__(self):
         self.__session_json = {"sessions":[],"timeblocks":[]}
@@ -17,10 +19,10 @@ class Factory:
         self.__themes_json.append(theme)
 
     def getSessionJson(self):
-        return self.__session_json
+        return json.dumps(self.__session_json)
 
     def getTagsJson(self):
-        return self.__tags_json
+        return json.dumps(self.__tags_json)
 
     def getThemeJson(self):
-        return self.__themes_json
+        return json.dumps(self.__themes_json)
