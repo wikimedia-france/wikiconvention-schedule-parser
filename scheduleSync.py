@@ -21,6 +21,7 @@ class ScheduleSync:
         for ul in self.__uls(".theme"):
             p = ThemeParser(ul)
             self.__f.addTheme(p.getResult())
+        self.__f.linkSessionToDay()
         return self
 
     def showFactory(self):

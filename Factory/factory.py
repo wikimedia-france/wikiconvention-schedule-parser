@@ -6,6 +6,12 @@ class Factory:
         self.__tags_json = []
         self.__themes_json = []
 
+    def linkSessionToDay(self):
+        for i, v in enumerate(self.__session_json["sessions"]):
+            for tb in self.__session_json["timeblocks"]:
+                if v["timeblock"] == tb["key"]:
+                    self.__session_json["sessions"][i]["day"] = tb["day"]
+
     def addSession(self, session):
         self.__session_json["sessions"].append(session)
 
@@ -19,7 +25,7 @@ class Factory:
         self.__themes_json.append(theme)
 
     def getSessionJson(self):
-        return json.dumps(self.__session_json["sessions"])
+        return json.dumps(self.__session_json)
 
     def getTagsJson(self):
         return json.dumps(self.__tags_json)
