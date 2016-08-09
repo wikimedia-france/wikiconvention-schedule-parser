@@ -2,6 +2,8 @@ from pyquery import PyQuery as pq
 import re
 
 class Parser:
+    urlPrefix = "https://meta.wikimedia.org"
+
     def __init__(self, ul):
         self._fingerprint = {}
         self._binding = {}
@@ -9,59 +11,49 @@ class Parser:
     def __split(self, element):
         return pq(element).html().split('=',1)
 
-    def _bind(self, key, value):
-        key = key.replace('_', ' ')
-        self.__push(key, key, value)
-        try:
-            for bind in self._binding[key]:
-                self.__push(key, bind, value)
-        except:
-            pass
+    def _bind(self, t, elem):
+        key, value = t
+        #pull off finals digit
+        ks = re.search('(.*)[0-9]+', t[0])
+        if ks is not None:
+            key = ks.group(1)
+        #browse binding
+        if key in self._binding:
+            for link in self._binding[key]:
+                self.__push(link, elem, value)
 
-    def __push(self, key, bind, value):
-        p = '(.*)[0-9]+'
-        c = re.compile(p)
-        s = re.search(p, key)
-        #remove bind number
-        bs = re.search(p, bind)
-        if bs is not None:
-            bind = bs.group(1)
-        #test input
-        inputString = bool(not c.match(key))
-        #test output
-        if s == None:
-            outputString = True
-        else:
-            outputString = not (bind == s.group(1))
-        #conditions
-        if inputString:
+    def __push(self, link, elem, value):
+        bind, type, primary = link['bind'], link['type'], link['primary']
+        if type == "string":
+            try:
+                if not primary and self._fingerprint[bind] != "":
+                    return
+            except:
+                pass
+            self._fingerprint[bind] = value
+        elif type == "url":
+            value = (Parser.urlPrefix + pq(elem)("a")[0].attrib['href']) if pq(elem)("a").length else value
+            try:
+                if not primary and self._fingerprint[bind] != "":
+                    return
+            except:
+                pass
+            self._fingerprint[bind] = value
+        elif type == "array":
+            if not bind in self._fingerprint:
+                self._fingerprint[bind] = []
+            self._fingerprint[bind].append(value)
+        elif type == "arraystring":
             if not bind in self._fingerprint:
                 self._fingerprint[bind] = value
-            elif self._fingerprint[bind] == "":
-                self._fingerprint[bind] = value
-            elif bind == key:
-                self._fingerprint[bind] = value
             else:
-                pass
-        else:
-            if outputString:
-                if not bind in self._fingerprint:
-                    self._fingerprint[bind] = value
-                elif self._fingerprint[bind] == "":
-                    self._fingerprint[bind] = value
-                else:
-                    self._fingerprint[bind] += ", " + value
-            else:
-                if not bind in self._fingerprint:
-                    self._fingerprint[bind] = [value]
-                else:
-                    self._fingerprint[bind].append(value)
+                self._fingerprint[bind] += ", " + value
 
     def _parse(self, ul):
         for li in ul:
             try:
                 d = self.__split(li)
-                self._bind(d[0], d[1])
+                self._bind(tuple(d), li)
             except Exception:
                 pass
 

@@ -19,7 +19,7 @@ class Factory:
         self.__themes_json.append(theme)
 
     def getSessionJson(self):
-        return json.dumps(self.__session_json)
+        return json.dumps(self.__session_json["sessions"])
 
     def getTagsJson(self):
         return json.dumps(self.__tags_json)

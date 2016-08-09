@@ -1,9 +1,25 @@
 from Parser.abstractParser import Parser
 
+
 class SessionParser(Parser):
     def __init__(self, ul):
         super().__init__(ul)
-        self._fingerprint = {"tags":""}
-        self._binding = {"facilitator1":["facilitators"], "facilitator2":["facilitators"], "facilitator3":["facilitators"], "facilitator4":["facilitators"], "facilitator5":["facilitators"], "facilitator6":["facilitators"], "facilitator7":["facilitators"], "facilitator8":["facilitators"], "facilitator9":["facilitators"], "tag1":["tags"], "tag2":["tags"], "tag3":["tags"], "tag4":["tags"], "tag5":["tags"], "tag6":["tags"], "tag7":["tags"], "tag8":["tags"], "tag9":["tags"], "tag10":["tags"], "tag11":["tags"], "tag12":["tags"], "tag13":["tags"], "tag14":["tags"], "tag15":["tags"]}
+        self._fingerprint = {"id":"","facilitator_array":[],"facilitators":"","tags":""}
+        self._binding = {"id": [{"bind": "id", "type": "string", "primary": True}],
+                         "title": [{"bind": "title", "type": "string", "primary": True}],
+                         "timeblock": [{"bind": "timeblock", "type": "string", "primary": True}],
+                         "start": [{"bind": "start", "type": "string", "primary": True}],
+                         "duration": [{"bind": "duration", "type": "string", "primary": True}],
+                         "description": [{"bind": "description", "type": "string", "primary": True}],
+                         "facilitators": [{"bind": "facilitators", "type": "arraystring", "primary": True}],
+                         "facilitator": [{"bind": "facilitator_array", "type": "array", "primary": True},
+                                         {"bind": "facilitators", "type": "arraystring", "primary": False}],
+                         "link": [{"bind": "link", "type": "url", "primary": True}],
+                         "location": [{"bind": "location", "type": "string", "primary": True}],
+                         "theme": [{"bind": "category", "type": "string", "primary": True}],
+                         "tags": [{"bind": "tags", "type": "arraystring", "primary": True}],
+                         "tag1": [{"bind": "tagArray", "type": "array", "primary": True},
+                                  {"bind": "tags", "type": "arraystring", "primary": False}],
+                         "next_session_id": [{"bind": "next_session_id", "type": "string", "primary": True}],
+                         "next_session_name": [{"bind": "next_session_name", "type": "string", "primary": True}]}
         self._parse(ul)
-
