@@ -23,6 +23,7 @@ class Parser:
                 self.__push(link, elem, value)
 
     def __push(self, link, elem, value):
+        value = value.replace("href=\"/wiki/","href=\"" + Parser.urlPrefix + "/wiki/")
         bind, type, primary = link['bind'], link['type'], link['primary']
         if type == "string":
             try:
@@ -32,7 +33,9 @@ class Parser:
                 pass
             self._fingerprint[bind] = value
         elif type == "url":
-            value = (Parser.urlPrefix + pq(elem)("a")[0].attrib['href']) if pq(elem)("a").length else value
+            value = pq(elem)("a")[0].attrib['href'] if pq(elem)("a").length else value
+            if re.compile('^\/wiki\/').match(value):
+                value = Parser.urlPrefix + value
             try:
                 if not primary and self._fingerprint[bind] != "":
                     return
@@ -45,6 +48,8 @@ class Parser:
             self._fingerprint[bind].append(value)
         elif type == "arraystring":
             if not bind in self._fingerprint:
+                self._fingerprint[bind] = value
+            elif self._fingerprint[bind] == "":
                 self._fingerprint[bind] = value
             else:
                 self._fingerprint[bind] += ", " + value
