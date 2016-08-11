@@ -24,11 +24,11 @@ class Factory:
     def addTheme(self, theme):
         self.__themes_json.append(theme)
 
-    def getSessionJson(self):
-        return json.dumps(self.__session_json)
+    def getSessionsJson(self):
+        return json.dumps(self.__session_json, sort_keys=True)
 
     def getTagsJson(self):
-        return json.dumps(self.__tags_json)
+        return json.dumps(self.__tags_json, sort_keys=True)
 
-    def getThemeJson(self):
-        return json.dumps(self.__themes_json)
+    def getThemesJson(self):
+        return json.dumps(self.__themes_json, sort_keys=True)

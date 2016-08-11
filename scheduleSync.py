@@ -1,3 +1,4 @@
+import os, sys
 from pyquery import PyQuery as pq
 import requests
 from Factory.factory import *
@@ -25,9 +26,17 @@ class ScheduleSync:
         return self
 
     def showFactory(self):
-        print(self.__f.getSessionJson())
-        print(self.__f.getTagsJson())
-        print(self.__f.getThemeJson())
+        if len(sys.argv) > 1:
+            if sys.argv[1] == "sessions":
+                print(self.__f.getSessionsJson())
+            elif sys.argv[1] == "tags":
+                print(self.__f.getTagsJson())
+            elif sys.argv[1] == "themes":
+                print(self.__f.getThemesJson())
+        else:
+            print(self.__f.getSessionsJson())
+            print(self.__f.getTagsJson())
+            print(self.__f.getThemesJson())
         return self
 
 apiURL = "https://meta.wikimedia.org/w/api.php?action=parse&format=json&text=%7B%7BUser%3AJitrixis%2FWikiConvention%2FProgramme%7Cshow%3DSimple%7D%7D&prop=text"
