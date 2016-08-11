@@ -20,6 +20,6 @@ class SessionParser(Parser):
                          "tags": [{"bind": "tags", "type": "arraystring", "primary": True}],
                          "tag": [{"bind": "tagArray", "type": "array", "primary": True},
                                   {"bind": "tags", "type": "arraystring", "primary": False}],
-                         "next_session_id": [{"bind": "next_session_id", "type": "string", "primary": True}],
-                         "next_session_name": [{"bind": "next_session_name", "type": "string", "primary": True}]}
+                         "next_session_id": [{"bind": "nextSessionID", "type": "string", "primary": True}],
+                         "next_session_title": [{"bind": "nextSessionTitle", "type": "string", "primary": True}]}
         self._parse(ul)
