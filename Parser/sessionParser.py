@@ -4,7 +4,7 @@ from Parser.abstractParser import Parser
 class SessionParser(Parser):
     def __init__(self, ul):
         super().__init__(ul)
-        self._fingerprint = {"id":"","facilitator_array":[],"facilitators":"","tags":"","description":""}
+        self._fingerprint = {"id":"","facilitator_array":[],"facilitators":"","tags":"","description":"","category":"","title":""}
         self._binding = {"id": [{"bind": "id", "type": "string", "primary": True}],
                          "title": [{"bind": "title", "type": "string", "primary": True}],
                          "timeblock": [{"bind": "timeblock", "type": "string", "primary": True}],
