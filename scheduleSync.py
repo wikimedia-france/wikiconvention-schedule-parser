@@ -39,8 +39,8 @@ class ScheduleSync:
             print(self.__f.getThemesJson())
         return self
 
-purgeURL = "https://meta.wikimedia.org/w/api.php?action=purge&format=none&titles=User%3AJitrixis%2FWikiConvention%2FProgramme"
+purgeURL = "https://meta.wikimedia.org/w/api.php?action=purge&format=none&titles=WikiConvention+francophone%2F2016%2FProgramme"
 requests.get(url=purgeURL)
 
-apiURL = "https://meta.wikimedia.org/w/api.php?action=parse&format=json&text=%7B%7BUser%3AJitrixis%2FWikiConvention%2FProgramme%7Cshow%3DSimple%7D%7D&prop=text"
+apiURL = "https://meta.wikimedia.org/w/api.php?action=parse&format=json&text=%7B%7B%3AWikiConvention+francophone%2F2016%2FProgramme%7Cshow%3DSimple%7D%7D&prop=text"
 ScheduleSync(requests.get(url=apiURL)).launchParsing().showFactory()
