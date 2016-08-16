@@ -21,5 +21,6 @@ class SessionParser(Parser):
                          "tag": [{"bind": "tagArray", "type": "array", "primary": True},
                                   {"bind": "tags", "type": "arraystring", "primary": False}],
                          "next_session_id": [{"bind": "nextSessionID", "type": "string", "primary": True}],
-                         "next_session_title": [{"bind": "nextSessionTitle", "type": "string", "primary": True}]}
+                         "next_session_title": [{"bind": "nextSessionTitle", "type": "string", "primary": True}],
+                         "atelier": [{"bind": "atelier", "type": "string", "primary": True}]}
         self._parse(ul)
