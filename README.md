@@ -23,19 +23,21 @@ cd ../wikiconvention-schedule-parser
 cat ./sync.sh
 ```
 
-Remplacer dans le fichier `sync.sh` les variables avec les valeurs qui vont bien
+**Remplacer dans le fichier `sync.sh` les variables avec les valeurs qui vont bien**
 
-Lieu de l'application :
+* Lieu de l'application :
 
 ```
 APP="/var/www/html/wikiconvention-schedule-app"
 ```
 
-Page META a executer (Remplacer YYYY)
+* Page META a executer (Remplacer YYYY)
 
 ```
 META="https://meta.wikimedia.org/w/api.php?action=parse&format=json&text=%7B%7B%3AWikiConvention+francophone%2FYYYY%2FProgramme%7Cshow%3DSimple%7D%7D&prop=text"
 ```
+
+*Example : [Bac à sable API](https://meta.wikimedia.org/wiki/Special:ApiSandbox#action=parse&format=json&text=%7B%7B%3AWikiConvention%20francophone%2F2017%2FProgramme%7Cshow%3DSimple%7D%7D&prop=text)*
 
 ## Synchronization
 
