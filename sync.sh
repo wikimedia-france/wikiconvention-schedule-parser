@@ -1,15 +1,28 @@
-git -C ./tmp/git/ pull
+CURRDIR="$(readlink -f $(pwd))"
+ROOTDIR="$(readlink -f $(dirname $0))"
+
+
+APP="/var/www/html/wikiconvention-schedule-app"
+META="https://meta.wikimedia.org/w/api.php?action=parse&format=json&text=%7B%7B%3AWikiConvention+francophone%2F2017%2FProgramme%7Cshow%3DSimple%7D%7D&prop=text"
+
+TMP="${ROOTDIR}/tmp/json"
+
+mkdir -p ${TMP}
+
+git -C ${APP} pull
 d=`date`
-python3 ./scheduleSync.py > ./tmp/json/sync.json
-sed -n '1p' < ./tmp/json/sync.json > ./tmp/git/sessions.json
-sed -n '2p' < ./tmp/json/sync.json > ./tmp/git/tags.json
-sed -n '3p' < ./tmp/json/sync.json > ./tmp/git/themes.json
-CHANGED=$(git -C ./tmp/git/ diff --name-only HEAD --)
+
+python3 ${CURRDIR}/scheduleSync.py ${META} > ${TMP}/sync.json
+sed -n '1p' < ${TMP}/sync.json > ${APP}/sessions.json
+sed -n '2p' < ${TMP}/sync.json > ${APP}/tags.json
+sed -n '3p' < ${TMP}/sync.json > ${APP}/themes.json
+
+CHANGED=$(git -C ${APP} diff --name-only HEAD --)
 if [ -n "$CHANGED" ]; then
     sed -i "2s/.*/# revision - $d/" ./tmp/git/schedule.appcache
-    git -C ./tmp/git/ add sessions.json tags.json themes.json schedule.appcache
-    git -C ./tmp/git/ commit -m "Synchronisation $d"
-    git -C ./tmp/git/ push
+    git -C ${APP} add sessions.json tags.json themes.json schedule.appcache
+    git -C ${APP} commit -m "Synchronisation $d"
+    git -C ${APP} push
     echo "SYNCHED"
 else
     echo "NOCHANGE"
