@@ -19,10 +19,10 @@ sed -n '3p' < ${TMP}/sync.json > ${APP}/themes.json
 
 CHANGED=$(git -C ${APP} diff --name-only HEAD --)
 if [ -n "$CHANGED" ]; then
-    sed -i "2s/.*/# revision - $d/" ./tmp/git/schedule.appcache
+    sed -i "2s/.*/# revision - $d/" ${APP}/schedule.appcache
     git -C ${APP} add sessions.json tags.json themes.json schedule.appcache
     git -C ${APP} commit -m "Synchronisation $d"
-    git -C ${APP} push
+    #git -C ${APP} push
     echo "SYNCHED"
 else
     echo "NOCHANGE"

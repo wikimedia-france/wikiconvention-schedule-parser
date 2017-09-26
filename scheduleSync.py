@@ -26,12 +26,12 @@ class ScheduleSync:
         return self
 
     def showFactory(self):
-        if len(sys.argv) > 1:
-            if sys.argv[1] == "sessions":
+        if len(sys.argv) > 2:
+            if sys.argv[2] == "sessions":
                 print(self.__f.getSessionsJson())
-            elif sys.argv[1] == "tags":
+            elif sys.argv[2] == "tags":
                 print(self.__f.getTagsJson())
-            elif sys.argv[1] == "themes":
+            elif sys.argv[2] == "themes":
                 print(self.__f.getThemesJson())
         else:
             print(self.__f.getSessionsJson())
