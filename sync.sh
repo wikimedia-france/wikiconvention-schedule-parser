@@ -1,4 +1,3 @@
-CURRDIR="$(readlink -f $(pwd))"
 ROOTDIR="$(readlink -f $(dirname $0))"
 
 
@@ -12,7 +11,7 @@ mkdir -p ${TMP}
 git -C ${APP} pull
 d=`date`
 
-python3 ${CURRDIR}/scheduleSync.py ${META} > ${TMP}/sync.json
+python3 ${ROOTDIR}/scheduleSync.py ${META} > ${TMP}/sync.json
 sed -n '1p' < ${TMP}/sync.json > ${APP}/sessions.json
 sed -n '2p' < ${TMP}/sync.json > ${APP}/tags.json
 sed -n '3p' < ${TMP}/sync.json > ${APP}/themes.json
