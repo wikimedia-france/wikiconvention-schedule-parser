@@ -15,6 +15,8 @@ git clone https://github.com/wikimedia-france/wikiconvention-schedule-app.git
 git clone https://github.com/wikimedia-france/wikiconvention-schedule-parser.git
 ```
 
+(Remplacer YYYY par l'année, ex: 2017)
+
 ```
 cd wikiconvention-schedule-app
 git checkout YYYY
@@ -38,7 +40,7 @@ cat ./sync.sh
 APP="/var/www/html/wikiconvention-schedule-app"
 ```
 
-* Page META a executer (Remplacer YYYY)
+* Page META a executer (Remplacer YYYY par l'année, ex: 2017)
 
 ```
 META="https://meta.wikimedia.org/w/api.php?action=parse&format=json&text=%7B%7B%3AWikiConvention+francophone%2FYYYY%2FProgramme%7Cshow%3DSimple%7D%7D&prop=text"
