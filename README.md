@@ -1,5 +1,12 @@
 # wikiconvention-schedule-parser
 
+## Pré-requis
+
+```
+apt install python3 python3-pip git
+pip3 install pyquery
+```
+
 ## Installation
 
 ```
