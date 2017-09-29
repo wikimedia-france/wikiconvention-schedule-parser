@@ -1,7 +1,7 @@
 ROOTDIR="$(readlink -f $(dirname $0))"
 
 
-APP="/var/www/html/wikiconvention-schedule-app"
+APP="/var/www/wikiconvention/wikiconvention-schedule-app"
 META="https://meta.wikimedia.org/w/api.php?action=parse&format=json&text=%7B%7B%3AWikiConvention+francophone%2F2017%2FProgramme%7Cshow%3DSimple%7D%7D&prop=text"
 
 TMP="${ROOTDIR}/tmp/json"
