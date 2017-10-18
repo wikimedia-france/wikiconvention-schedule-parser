@@ -22,7 +22,7 @@ if [ -n "$CHANGED" ]; then
     git -C ${APP} add sessions.json tags.json themes.json schedule.appcache
     git -C ${APP} commit -m "Synchronisation $d"
     #git -C ${APP} push
-    echo "SYNCHED"
+    echo "$d - SYNCHED"
 else
-    echo "NOCHANGE"
+    echo "$d - NOCHANGE"
 fi
